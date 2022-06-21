@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.platform.ComposeView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,12 +19,12 @@ class TestFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_test, container, false)
-        binding.state = TestState()
-        binding.lifecycleOwner = viewLifecycleOwner
-        initListener()
-        initClickListeners()
-        return binding.root
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_test, container, false)
+            binding.state = TestState()
+            binding.lifecycleOwner = viewLifecycleOwner
+            initListener()
+            initClickListeners()
+            return binding.root
     }
 
     private fun initListener(){
@@ -34,11 +35,13 @@ class TestFragment : Fragment(){
 
     private fun initClickListeners(){
         binding.buttonA.setOnClickListener{
-            testViewModel.clickA()
+            testViewModel.dispatch(TestActions.ClickButtonA)
         }
 
         binding.buttonB.setOnClickListener{
-            testViewModel.clickB()
+            dispatch(TestActions.ClickButtonB)
         }
     }
+
+    private fun dispatch(actions: TestActions) = testViewModel.dispatch(actions)
 }

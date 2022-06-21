@@ -12,12 +12,19 @@ class TestViewModel: ViewModel() {
         _testLiveData.value = TestState()
     }
 
-    fun clickA(){
+    private fun clickA(){
         _testLiveData.value = testLiveData.value?.copy(lastClicked = "A")
     }
 
-    fun clickB(){
+    private fun clickB(){
         _testLiveData.value = testLiveData.value?.copy(lastClicked = "B")
+    }
+
+    fun dispatch(action: TestActions){
+        when(action){
+            is TestActions.ClickButtonA -> clickA()
+            is TestActions.ClickButtonB -> clickB()
+        }
     }
 }
 
