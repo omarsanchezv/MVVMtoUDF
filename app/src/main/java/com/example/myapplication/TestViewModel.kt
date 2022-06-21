@@ -20,7 +20,7 @@ class TestViewModel: ViewModel() {
         _testLiveData.value = testLiveData.value?.copy(lastClicked = "B")
     }
 
-    fun dispatch(action: TestActions){
+    fun dispatch(action: Action){
         when(action){
             is TestActions.ClickButtonA -> clickA()
             is TestActions.ClickButtonB -> clickB()
